@@ -33,4 +33,6 @@ this app uses the **PERN Stack**
 
 - 1.1.0
   - Add Post form
+  - Add Post display with comments
+  - Add add comment field
  <!-- ## Credit and Collaborations -->
