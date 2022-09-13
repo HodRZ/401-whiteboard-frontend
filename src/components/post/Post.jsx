@@ -16,9 +16,9 @@ function Post(props) {
     }, [])
     return (
         <div>
-            <h2>hello</h2>
+
             {posts &&
-                <PostsCard posts={posts} />}
+                <PostsCard posts={posts} getPosts={getPosts} />}
             <AddPostForm />
             <AddCommentForm />
         </div>

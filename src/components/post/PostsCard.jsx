@@ -11,7 +11,15 @@ function PostsCard(props) {
             content: e.target.comment.value
         }
         await axios.post(`${process.env.REACT_APP_PORT}/post/${id}/comment`, newCmnt)
+        props.getPosts()
+        setComment(!comment)
+    }
 
+    const deleteComment = async (e) => {
+        e.preventDefault()
+        const id = e.target.id
+        await axios.delete(`${process.env.REACT_APP_PORT}/comment/${id}`)
+        props.getPosts()
     }
     const showComment = () => {
         setComment(!comment)
@@ -24,12 +32,16 @@ function PostsCard(props) {
                     return <div key={post.id} className=' bg-slate-200 border-2 flex flex-col border-slate-700 rounded-md h-fit '>
                         <h2 className='text-center text-2xl my-5'>{post.title}</h2>
                         <p className='mx-5 my-8'>{post.content}</p>
-                        {post.comments[0] && post.comments.map((comment) => {
-                            return <>    <p className='px-5 my-8 bg-slate-300'>{comment.content}</p>
-                            </>
-                        }
-                        )}
-                        <button type="button" onClick={showComment} className='border-b-2 mx-auto border-zinc-400 rounded-lg'>comment</button>
+                        <div className='bg-white flex flex-col gap-3 my-2'>
+                            {post.comments[0] && post.comments.map((comment) => {
+                                return <div className='flex justify-between'>
+                                    <p className='px-5 border-t-2'>{comment.content}</p>
+                                    <button className='mx-2 text-sm border rounded-xl hover:bg-black hover:text-white border-black' id={comment.id} onClick={deleteComment} >delete</button>
+                                </div>
+                            }
+                            )}
+                        </div>
+                        <button type="button" onClick={showComment} className='border-b-2 mx-auto my-3 border-zinc-400 rounded-lg'>comment</button>
                         {comment &&
                             <form className='flex flex-col my-3' id={post.id} onSubmit={addComment}>
                                 <input type="text" name='comment' placeholder='comment' className='border border-black rounded-lg bg-slate-300 my-4' />
