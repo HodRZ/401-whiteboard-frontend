@@ -4,7 +4,7 @@
 
 **Github**: [HodRZ](https://github.com/HodRZ)
 
-**Version**: 1.0.0
+**Version**: 1.1.0
 
 **Backend repo**: [here](https://github.com/HodRZ/401-whiteboard-backend)
 
