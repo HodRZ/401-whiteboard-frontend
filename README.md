@@ -28,6 +28,9 @@ this app uses the **PERN Stack**
 
 ## Change Log
 
-- 1.0.0 : add app basic skeleton and dependencies
+- 1.0.0
+  - Add app basic skeleton and dependencies
 
+- 1.1.0
+  - Add Post form
  <!-- ## Credit and Collaborations -->
