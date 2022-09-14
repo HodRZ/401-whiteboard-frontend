@@ -4,11 +4,11 @@
 
 **Github**: [HodRZ](https://github.com/HodRZ)
 
-**Version**: 1.1.0
+**Version**: 1.1.1
 
 **Backend repo**: [here](https://github.com/HodRZ/401-whiteboard-backend)
 
-**Live Url** : to be released
+**Live Url** : [401-whiteboard](https://401-whiteboard.netlify.app/)
 
 ## Overview
 
