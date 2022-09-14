@@ -44,7 +44,7 @@ function PostsCard(props) {
     return (
         <>
             {showPost &&
-                <div key={post?.id} className=' bg-slate-200 border-2 flex flex-col border-slate-700 rounded-md h-fit '>
+                <div key={post?.id} className=' bg-purple-500 border shadow-xl flex flex-col border-slate-700 rounded-md h-fit '>
                     <div className='flex justify-between'>
                         <h2 className='text-center text-2xl mx-3 my-5'>{post?.title}</h2>
                         <form onSubmit={deletePost} id={post?.id} className='mt-3'>
@@ -52,11 +52,11 @@ function PostsCard(props) {
                         </form>
                     </div>
                     <p className='mx-5 my-8'>{post?.content}</p>
-                    <div className='bg-white flex flex-col gap-3 my-2'>
+                    <div className='bg-purple-300 flex flex-col gap-3 my-2'>
                         {post?.comments &&
                             post.comments.map((comment) => {
                                 return <div className='flex justify-between'>
-                                    <p className='px-5 border-t-2'>{comment.content}</p>
+                                    <p className='px-5'>{comment.content}</p>
                                     <button className='mx-2 text-sm border rounded-xl hover:bg-black hover:text-white border-black' id={comment.id} onClick={deleteComment} >delete</button>
                                 </div>
                             }
@@ -64,7 +64,7 @@ function PostsCard(props) {
                     </div>
                     <form className='flex flex-col my-3 place-items-center text-center' id={post?.id} onSubmit={addComment}>
                         <input type="text" name='comment' placeholder='comment' className='w-full border border-black rounded-lg bg-slate-300 my-4' />
-                        <button className='border-b-2 border-black rounded-xl w-16'>comment</button>
+                        <button className='border-b-2 bg-purple-900 text-white border-purple-900 shadow-xl hover:bg-action hover:text-purple-200 rounded-xl w-32'>comment</button>
                     </form>
                 </div>
             }
