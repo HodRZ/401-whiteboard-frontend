@@ -5,7 +5,7 @@ import Post from './components/post/Post';
 
 function App() {
   return (
-    <div className="App ml-[4.9rem] ">
+    <div className="App ml-[4.9rem] bg-yolk1">
       <Sidebar />
       <Hero />
       <Post />

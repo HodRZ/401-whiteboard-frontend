@@ -16,7 +16,7 @@ function AddPostForm(props) {
 
     return (
         <div className='md:flex place-content-center '>
-            <div className='mx-5 my-8 bg-purple-500 shadow-md p-6 md:w-[75%] '>
+            <div className='mx-5 my-8 bg-purple-300 shadow-md p-6 md:w-[75%] '>
                 <form className='flex flex-col gap-2 text-center font-mono ' onSubmit={addPost}>
                     <div className='flex justify-between md:gap-3 '>
                         <label className='w-[10%]'>title</label>
