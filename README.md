@@ -36,4 +36,8 @@ this app uses the **PERN Stack**
   - Add Post display with comments
   - Add add comment field
   - Add comments crud
+
+- 1.1.1
+  - Fix state managament
+  - Fix performance
  <!-- ## Credit and Collaborations -->

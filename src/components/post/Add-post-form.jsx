@@ -8,10 +8,10 @@ function AddPostForm(props) {
             content: e.target.content.value,
             title: e.target.title.value
         }
-        await axios.post(`${process.env.REACT_APP_PORT}/post`, data)
+        const newPost = await axios.post(`${process.env.REACT_APP_PORT}/post`, data)
         e.target.content.value = ''
         e.target.title.value = ''
-        props.getPosts()
+        props.updatePosts(newPost.data)
     }
 
     return (

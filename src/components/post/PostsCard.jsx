@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { AiFillDelete } from 'react-icons/ai'
 function PostsCard(props) {
     const [comment, setComment] = useState(false)
-    const [post, setPost] = useState()
+    const [post, setPost] = useState(props.post)
     const [showPost, setShowPost] = useState(true)
 
     const getPost = async () => {
@@ -40,7 +40,7 @@ function PostsCard(props) {
     }
     useEffect(() => {
         getPost()
-    },)
+    }, [])
     return (
         <>
             {showPost &&

@@ -10,13 +10,16 @@ function Post(props) {
         const postsData = await axios.get(`${process.env.REACT_APP_PORT}/postAll?filter=comments`)
         setPosts(postsData.data)
     }
+    const updatePosts = (post) => {
+        setPosts([...posts, post])
+    }
     useEffect(() => {
         getPosts()
     }, [])
     return (
         <div>
 
-            <AddPostForm getPosts={getPosts} />
+            <AddPostForm getPosts={getPosts} updatePosts={updatePosts} />
             <div className='grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 mx-4 font-mono gap-x-5 gap-y-8'>
 
                 {posts && posts.map((post) => {
