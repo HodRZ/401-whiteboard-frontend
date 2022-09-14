@@ -9,6 +9,9 @@ function AddPostForm(props) {
             title: e.target.title.value
         }
         await axios.post(`${process.env.REACT_APP_PORT}/post`, data)
+        e.target.content.value = ''
+        e.target.title.value = ''
+        props.getPosts()
     }
 
     return (

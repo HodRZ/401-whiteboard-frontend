@@ -1,6 +1,5 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import AddCommentForm from './Add-comment-form';
 import AddPostForm from './Add-post-form';
 import PostsCard from './PostsCard';
 
@@ -17,10 +16,13 @@ function Post(props) {
     return (
         <div>
 
-            {posts &&
-                <PostsCard posts={posts} getPosts={getPosts} />}
-            <AddPostForm />
-            <AddCommentForm />
+            <AddPostForm getPosts={getPosts} />
+            <div className='grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 mx-4 font-mono gap-x-5 gap-y-8'>
+
+                {posts && posts.map((post) => {
+                    return <PostsCard post={post} getPosts={getPosts} />
+                })}
+            </div>
         </div>
     );
 }
