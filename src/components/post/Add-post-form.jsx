@@ -15,16 +15,20 @@ function AddPostForm(props) {
     }
 
     return (
-        <div className='mx-20 gap-8'>
-            <form className='flex flex-col text-center font-mono' onSubmit={addPost}>
-                <label>post title</label>
-                <input type="text" name='title' className='border border-black rounded-lg bg-slate-300' />
-                <label>give it your best</label>
-                <input type="text" name='content' className='border border-black rounded-lg bg-slate-300' />
-                <div className='flex justify-center gap-16 '>
-                    <button className='border-b-2 w-fit  border-zinc-400 rounded-lg'>post</button>
-                </div>
-            </form>
+        <div className='md:flex place-content-center '>
+            <div className='mx-5 my-8 bg-purple-500 shadow-md p-6 md:w-[75%] '>
+                <form className='flex flex-col gap-2 text-center font-mono ' onSubmit={addPost}>
+                    <div className='flex justify-between md:gap-3 '>
+                        <label className='w-[10%]'>title</label>
+                        <input type="text" placeholder='goes here' name='title' className='border md:w-[93%] border-action rounded-lg bg-purple-100' />
+                    </div>
+                    <label>give it your best</label>
+                    <textarea type="text" placeholder='whats on your mind' name='content' className='border border-action rounded-lg bg-purple-100' />
+                    <div className='flex justify-center gap-16 '>
+                        <button className='border-b-2 hover:bg-purple-900 hover:text-action w-[20%] bg-action border-purple-900 shadow-lg rounded-lg'>post</button>
+                    </div>
+                </form>
+            </div>
         </div>
     );
 }
