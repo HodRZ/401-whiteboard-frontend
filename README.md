@@ -40,4 +40,5 @@ this app uses the **PERN Stack**
 - 1.1.1
   - Fix state managament
   - Fix performance
+  - Update UI
  <!-- ## Credit and Collaborations -->
