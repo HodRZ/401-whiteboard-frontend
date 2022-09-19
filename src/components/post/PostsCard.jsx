@@ -51,7 +51,7 @@ function PostsCard(props) {
                             <button className='text-xl'><AiFillDelete className='h-6 w-fit border-2 m-2 rounded-full   hover:text-slate-500' /></button>
                         </form>
                     </div>
-                    <p className='mx-5 my-8'>{post?.content}</p>
+                    <p className='px-3 py-8 bg-black bg-opacity-10'>{post?.content}</p>
                     <div className=' flex flex-col gap-3 my-2'>
                         {post?.comments &&
                             post.comments.map((comment) => {
