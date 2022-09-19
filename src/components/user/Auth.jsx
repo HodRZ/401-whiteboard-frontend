@@ -32,17 +32,17 @@ const Auth = (props) => {
             .catch(e => alert(e.response.data));
     }
     return (
-        <div className='font-mono my-20 mx-32 text-center text-sm md:text-lg'>
+        <div className='font-mono md:my-20 md:mx-32 text-center text-sm md:text-lg'>
             <div className='flex flex-col items-center w-full'>
-                <h2 className=' py-5 mt-16 px-4 border shadow-lg rounded-lg w-full'>Welcome to our Whiteboard!</h2>
-                <div className='flex flex-col md:flex-row gap-16 m-16'>
+                <h2 className=' py-5 mt-16 px-4 border shadow-lg rounded-lg w-[70%] md:w-full'>Welcome to our Whiteboard!</h2>
+                <div className='flex flex-col md:flex-row gap-4 md:gap-16 m-8 md:m-16'>
                     <button onClick={userForm} className={`border-b rounded-lg ${(!newUser) ? 'bg-black text-white' : 'bg-white'} shadow-lg border-black py-3 px-8`}>Login</button>
                     <button onClick={userForm} className={`border-b rounded-lg ${(newUser) ? 'bg-black text-white' : 'bg-white'}  shadow-lg border-black py-3 px-8`}>Join the tribe!</button>
                 </div>
                 {newUser &&
 
-                    <div className='border shadow-lg w-[50%]'>
-                        <form className='w-full text-left flex flex-col gap-7 border p-8 bg-black text-white rounded-lg ' onSubmit={singup}>
+                    <div className='border shadow-lg md:w-[50%]'>
+                        <form className='w-full text-left flex flex-col gap-7 border p-8 bg-black text-white rounded-lg' onSubmit={singup}>
                             <div>
                                 <label htmlFor="email">email</label>
                                 <input type="email" placeholder='email' className='border w-full' name='email' />
@@ -56,8 +56,8 @@ const Auth = (props) => {
                     </div>
                 }
                 {!newUser &&
-                    <div className='border shadow-lg w-[50%] '>
-                        <form className='w-full text-left flex flex-col gap-7 border p-8' onSubmit={signin}>
+                    <div className='border shadow-lg md:w-[50%] '>
+                        <form className='w-full text-left flex flex-col gap-7 border rounded-lg p-8' onSubmit={signin}>
                             <div>
                                 <label htmlFor="email">email</label>
                                 <input type="email" placeholder='email' className='border w-full' name='email' />
