@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios from './../../api/axios';
 import React, { useEffect, useState } from 'react';
 import { AiFillDelete } from 'react-icons/ai'
 function PostsCard(props) {
@@ -8,7 +8,7 @@ function PostsCard(props) {
 
     const getPost = async () => {
         const id = props.post.id
-        const updatedPost = await axios.get(`${process.env.REACT_APP_PORT}/post/${id}?filter=comments`)
+        const updatedPost = await axios.get(`/post/${id}?filter=comments`)
         setPost(updatedPost.data)
     }
 
@@ -18,7 +18,7 @@ function PostsCard(props) {
         const newCmnt = {
             content: e.target.comment.value
         }
-        await axios.post(`${process.env.REACT_APP_PORT}/post/${id}/comment`, newCmnt)
+        await axios.post(`/post/${id}/comment`, newCmnt)
         e.target.comment.value = ''
         setComment(!comment)
         getPost()
@@ -27,7 +27,7 @@ function PostsCard(props) {
     const deleteComment = async (e) => {
         e.preventDefault()
         const id = e.target.id
-        await axios.delete(`${process.env.REACT_APP_PORT}/comment/${id}`)
+        await axios.delete(`/comment/${id}`)
         getPost()
     }
 
@@ -35,7 +35,7 @@ function PostsCard(props) {
     const deletePost = async (e) => {
         e.preventDefault()
         const id = e.target.id
-        await axios.delete(`${process.env.REACT_APP_PORT}/post/${id}`)
+        await axios.delete(`/post/${id}`)
         setShowPost(false)
     }
     useEffect(() => {

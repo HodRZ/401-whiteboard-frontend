@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios from './../../api/axios';
 import React, { useEffect, useState } from 'react';
 import AddPostForm from './Add-post-form';
 import PostsCard from './PostsCard';
@@ -7,7 +7,7 @@ function Post(props) {
     const [posts, setPosts] = useState()
 
     const getPosts = async () => {
-        const postsData = await axios.get(`${process.env.REACT_APP_PORT}/postAll?filter=comments`)
+        const postsData = await axios.get(`/postAll?filter=comments`)
         setPosts(postsData.data)
     }
     const updatePosts = (post) => {

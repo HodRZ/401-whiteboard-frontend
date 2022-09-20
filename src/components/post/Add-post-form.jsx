@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios from './../../api/axios';
 import React from 'react';
 
 function AddPostForm(props) {
@@ -8,7 +8,7 @@ function AddPostForm(props) {
             content: e.target.content.value,
             title: e.target.title.value
         }
-        const newPost = await axios.post(`${process.env.REACT_APP_PORT}/post`, data)
+        const newPost = await axios.post(`/post`, data)
         e.target.content.value = ''
         e.target.title.value = ''
         props.updatePosts(newPost.data)

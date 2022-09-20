@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios from './../../api/axios';
 import React from 'react';
 import { useState } from 'react';
 import base64 from 'base-64'
@@ -16,7 +16,7 @@ const Auth = (props) => {
             "email": e.target.email.value,
             "password": e.target.password.value
         }
-        await axios.post(`${process.env.REACT_APP_PORT}/signUp`, newUser)
+        await axios.post(`/signUp`, newUser)
             .then(res => props.userAuth(res.data))
             .catch(e => alert(e.response.data))
     }
@@ -27,7 +27,7 @@ const Auth = (props) => {
             "password": e.target.password.value
         };
         const encodedData = base64.encode(`${userData.email}:${userData.password}`);
-        await axios.post(`${process.env.REACT_APP_PORT}/signin`, {}, { headers: { Authorization: `Basic ${encodedData}` } })
+        await axios.post(`/signin`, {}, { headers: { Authorization: `Basic ${encodedData}` } })
             .then(res => props.userAuth(res.data))
             .catch(e => alert(e.response.data));
     }
