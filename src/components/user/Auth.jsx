@@ -21,6 +21,7 @@ const Auth = (props) => {
         await axios.post(`/signUp`, newUser)
             .then(res => {
                 cookies.save('token', res.data.token)
+                cookies.save('userId', res.data.id)
                 props.login(res.data)
             })
             .catch(e => alert(e.response.data))
