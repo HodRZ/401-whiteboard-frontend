@@ -1,7 +1,8 @@
-import axios from 'axios';
+import axios from './../../api/axios';
 import React from 'react';
 import { useState } from 'react';
 import base64 from 'base-64'
+import cookies from 'react-cookies'
 
 const Auth = (props) => {
     const [newUser, setNewUser] = useState()
@@ -14,10 +15,14 @@ const Auth = (props) => {
         e.preventDefault()
         const newUser = {
             "email": e.target.email.value,
-            "password": e.target.password.value
+            "password": e.target.password.value,
+            "username": e.target.username.value
         }
-        await axios.post(`${process.env.REACT_APP_PORT}/signUp`, newUser)
-            .then(res => props.userAuth(res.data))
+        await axios.post(`/signUp`, newUser)
+            .then(res => {
+                cookies.save('token', res.data.token)
+                props.login(res.data)
+            })
             .catch(e => alert(e.response.data))
     }
     const signin = async (e) => {
@@ -27,8 +32,12 @@ const Auth = (props) => {
             "password": e.target.password.value
         };
         const encodedData = base64.encode(`${userData.email}:${userData.password}`);
-        await axios.post(`${process.env.REACT_APP_PORT}/signin`, {}, { headers: { Authorization: `Basic ${encodedData}` } })
-            .then(res => props.userAuth(res.data))
+        await axios.post(`/signin`, {}, { headers: { Authorization: `Basic ${encodedData}` } })
+            .then(res => {
+                cookies.save('token', res.data.token)
+                cookies.save('userId', res.data.id)
+                props.login(res.data)
+            })
             .catch(e => alert(e.response.data));
     }
     return (
@@ -44,12 +53,16 @@ const Auth = (props) => {
                     <div className='border shadow-lg md:w-[50%]'>
                         <form className='w-full text-left flex flex-col gap-7 border p-8 bg-black text-white rounded-lg' onSubmit={singup}>
                             <div>
+                                <label htmlFor="username">username</label>
+                                <input type="username" required placeholder='username' className='text-black border w-full' name='username' />
+                            </div>
+                            <div>
                                 <label htmlFor="email">email</label>
-                                <input type="email" placeholder='email' className='border w-full' name='email' />
+                                <input type="email" required placeholder='email' className='border w-full text-black' name='email' />
                             </div>
                             <div>
                                 <label htmlFor="password">password</label>
-                                <input type="password" placeholder='password' className='border w-full' name='password' />
+                                <input type="password" required placeholder='password' className='text-black border w-full' name='password' />
                             </div>
                             <button className='border-b-2  border-white shadow-xl hover:bg-action hover:text-purple-200 rounded-xl my-3'>Sign Up</button>
                         </form>
@@ -59,12 +72,16 @@ const Auth = (props) => {
                     <div className='border shadow-lg md:w-[50%] '>
                         <form className='w-full text-left flex flex-col gap-7 border rounded-lg p-8' onSubmit={signin}>
                             <div>
+                                <label htmlFor="username">username</label>
+                                <input type="username" required placeholder='username' className='border w-full' name='username' />
+                            </div>
+                            <div>
                                 <label htmlFor="email">email</label>
-                                <input type="email" placeholder='email' className='border w-full' name='email' />
+                                <input type="email" required placeholder='email' className='border w-full' name='email' />
                             </div>
                             <div>
                                 <label htmlFor="password">password</label>
-                                <input type="password" placeholder='password' className='border w-full' name='password' />
+                                <input type="password" required placeholder='password' className='border w-full' name='password' />
                             </div>
                             <button className='border-b-2  border-black shadow-xl hover:bg-action hover:text-purple-200 rounded-xl my-3'>Log in</button>
                         </form>
