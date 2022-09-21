@@ -13,7 +13,7 @@ function Sidebar(props) {
                 <i>contact</i>
                 <i>support</i>
                 <i>Profile</i>
-                {props.logout && <button className='border-b-2 border-white shadow-xl hover:bg-action hover:text-purple-200 rounded-xl my-3' onClick={logout}>logout</button>}
+                {props.isLoggedIn && <button className='border-b-2 border-white shadow-xl hover:bg-action hover:text-purple-200 rounded-xl my-3' onClick={logout}>logout</button>}
             </div>
         </div>
     );
