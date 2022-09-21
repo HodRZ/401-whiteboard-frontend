@@ -35,7 +35,7 @@ function App() {
   }, [])
   return (
     <div className="App pl-[4.9rem]">
-      <Sidebar logout={logout} />
+      <Sidebar isLoggedIn={isLoggedIn} logout={logout} />
       <Hero />
       {(isLoggedIn && user) ? <Post user={user} /> : <Auth login={login} />}
     </div>
