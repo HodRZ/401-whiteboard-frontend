@@ -65,9 +65,9 @@ function PostsCard(props) {
                                     <p className='px-5 border-y border-black'>{comment.content}</p>
                                     <div className='flex '>
                                         {(comment.User.id === props.loggedUser.id) &&
-                                            <button className='mx-2 text-sm border-y rounded-xl hover:bg-black hover:text-white border-black' id={comment.id} onClick={deleteComment} ><AiFillDelete className='h-full w-fit border-2 rounded-full hover:text-slate-500' /></button>
+                                            <button className='mx-2 text-sm border-y rounded-xl hover:bg-black hover:text-white border-black h-fit' id={comment.id} onClick={deleteComment} ><AiFillDelete className='h-fit w-fit border-2 rounded-full hover:text-slate-500' /></button>
                                         }
-                                        <p className='px-2 border-y bg-black text-white border-x rounded-md border-black'>{comment.User.username}</p>
+                                        <p className='px-2 border-y bg-black text-white border-x rounded-md border-black h-fit'>{comment.User.username}</p>
                                     </div>
                                 </div>
                             }
