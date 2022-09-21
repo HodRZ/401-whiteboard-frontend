@@ -8,7 +8,7 @@ function PostsCard(props) {
 
     const getPost = async () => {
         const id = props.post.id
-        const updatedPost = await axios.get(`/post/${id}?filter=comments`)
+        const updatedPost = await axios.get(`/post/${id}`)
         setPost(updatedPost.data)
     }
 
@@ -16,7 +16,8 @@ function PostsCard(props) {
         e.preventDefault()
         const id = e.target.id
         const newCmnt = {
-            content: e.target.comment.value
+            content: e.target.comment.value,
+            UserId: props.loggedUser.id
         }
         await axios.post(`/post/${id}/comment`, newCmnt)
         e.target.comment.value = ''
@@ -47,9 +48,14 @@ function PostsCard(props) {
                 <div key={post?.id} className=' border shadow-xl flex flex-col border-slate-700 rounded-md h-fit '>
                     <div className='flex justify-between'>
                         <h2 className='text-center text-2xl mx-3 my-5'>{post?.title}</h2>
-                        <form onSubmit={deletePost} id={post?.id} className='mt-3'>
-                            <button className='text-xl'><AiFillDelete className='h-6 w-fit border-2 m-2 rounded-full   hover:text-slate-500' /></button>
-                        </form>
+                        <aside className='flex place-items-center'>
+                            <h3 className='text-center bg-black text-white rounded-lg p-2 text-md mx-3 my-5'>{props.author?.username}</h3>
+                            {(post.UserId === props.loggedUser.id) &&
+                                <form onSubmit={deletePost} id={post?.id} className='mt-3'>
+                                    <button className='text-xl'><AiFillDelete className='h-6 w-fit border-2 m-2 rounded-full   hover:text-slate-500' /></button>
+                                </form>}
+
+                        </aside>
                     </div>
                     <p className='px-3 py-8 bg-black bg-opacity-10'>{post?.content}</p>
                     <div className=' flex flex-col gap-3 my-2'>
@@ -57,7 +63,12 @@ function PostsCard(props) {
                             post.comments.map((comment) => {
                                 return <div className='flex justify-between'>
                                     <p className='px-5 border-y border-black'>{comment.content}</p>
-                                    <button className='mx-2 text-sm border-y rounded-xl hover:bg-black hover:text-white border-black' id={comment.id} onClick={deleteComment} >delete</button>
+                                    <div className='flex '>
+                                        {(comment.User.id === props.loggedUser.id) &&
+                                            <button className='mx-2 text-sm border-y rounded-xl hover:bg-black hover:text-white border-black' id={comment.id} onClick={deleteComment} ><AiFillDelete className='h-full w-fit border-2 rounded-full hover:text-slate-500' /></button>
+                                        }
+                                        <p className='px-2 border-y bg-black text-white border-x rounded-md border-black'>{comment.User.username}</p>
+                                    </div>
                                 </div>
                             }
                             )}
