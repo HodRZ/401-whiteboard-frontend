@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useState } from 'react';
 import cookies from 'react-cookies';
-import axios from './api/axios';
+import axios, { axiosPrivate } from './api/axios';
 import './App.css';
 import Hero from './components/main/Hero';
 import Sidebar from './components/main/Sidebar';
