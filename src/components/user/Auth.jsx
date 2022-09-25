@@ -20,8 +20,8 @@ const Auth = (props) => {
         }
         await axios.post(`/signUp`, newUser)
             .then(res => {
-                cookies.save('token', res.data.token)
-                cookies.save('userId', res.data.id)
+                // cookies.save('token', res.data.token)
+                // cookies.save('userId', res.data.id)
                 props.login(res.data)
             })
             .catch(e => alert(e.response.data))
@@ -35,8 +35,8 @@ const Auth = (props) => {
         const encodedData = base64.encode(`${userData.email}:${userData.password}`);
         await axios.post(`/signin`, {}, { headers: { Authorization: `Basic ${encodedData}` } })
             .then(res => {
-                cookies.save('token', res.data.token)
-                cookies.save('userId', res.data.id)
+                // cookies.save('token', res.data.token)
+                // cookies.save('userId', res.data.id)
                 props.login(res.data)
             })
             .catch(e => alert(e.response.data));
