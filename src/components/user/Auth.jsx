@@ -1,8 +1,7 @@
-import axios from './../../api/axios';
+import { axiosPrivate } from './../../api/axios';
 import React from 'react';
 import { useState } from 'react';
 import base64 from 'base-64'
-import cookies from 'react-cookies'
 
 const Auth = (props) => {
     const [newUser, setNewUser] = useState()
@@ -18,10 +17,8 @@ const Auth = (props) => {
             "password": e.target.password.value,
             "username": e.target.username.value
         }
-        await axios.post(`/signUp`, newUser)
+        await axiosPrivate.post(`/signUp`, newUser)
             .then(res => {
-                cookies.save('token', res.data.token)
-                cookies.save('userId', res.data.id)
                 props.login(res.data)
             })
             .catch(e => alert(e.response.data))
@@ -33,10 +30,8 @@ const Auth = (props) => {
             "password": e.target.password.value
         };
         const encodedData = base64.encode(`${userData.email}:${userData.password}`);
-        await axios.post(`/signin`, {}, { headers: { Authorization: `Basic ${encodedData}` } })
+        await axiosPrivate.post(`/signin`, {}, { headers: { Authorization: `Basic ${encodedData}` } })
             .then(res => {
-                cookies.save('token', res.data.token)
-                cookies.save('userId', res.data.id)
                 props.login(res.data)
             })
             .catch(e => alert(e.response.data));
