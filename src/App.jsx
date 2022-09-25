@@ -1,7 +1,6 @@
 import { useEffect } from 'react';
 import { useState } from 'react';
-import cookies from 'react-cookies';
-import axios, { axiosPrivate } from './api/axios';
+import { axiosPrivate } from './api/axios';
 import './App.css';
 import Hero from './components/main/Hero';
 import Sidebar from './components/main/Sidebar';
@@ -22,7 +21,6 @@ function App() {
     setIsLoggedIn(false)
   }
   useEffect(() => {
-    // const token = cookies.load('token')
     async function getUser() {
       try {
         await axiosPrivate.post(`/silent`).then(res => {
