@@ -28,7 +28,11 @@ function PostsCard(props) {
     const deleteComment = async (e) => {
         e.preventDefault()
         const id = e.target.id
-        await axios.delete(`/comment/${id}`)
+        await axios.delete(`/comment/${id}`, {
+            headers: {
+                Authorization: `Bearer ${props.loggedUser.access_token}`
+            }
+        })
         getPost()
     }
 
@@ -36,7 +40,11 @@ function PostsCard(props) {
     const deletePost = async (e) => {
         e.preventDefault()
         const id = e.target.id
-        await axios.delete(`/post/${id}`)
+        await axios.delete(`/post/${id}`, {
+            headers: {
+                Authorization: `Bearer ${props.loggedUser.access_token}`
+            }
+        })
         setShowPost(false)
     }
     useEffect(() => {
