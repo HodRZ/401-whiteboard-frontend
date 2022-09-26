@@ -4,7 +4,7 @@
 
 **Github**: [HodRZ](https://github.com/HodRZ)
 
-**Version**: 2.0.0
+**Version**: 2.1.0
 
 **Backend repo**: [here](https://github.com/HodRZ/401-whiteboard-backend)
 
@@ -48,4 +48,8 @@ this app uses the **PERN Stack**
 
 - 2.0.0
   - Update routing
+
+- 2.1.0
+  - Add roles
+  - Add tokenization and persistant login
  <!-- ## Credit and Collaborations -->
