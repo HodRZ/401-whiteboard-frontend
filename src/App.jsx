@@ -1,7 +1,6 @@
 import { useEffect } from 'react';
 import { useState } from 'react';
-import cookies from 'react-cookies';
-import axios from './api/axios';
+import { axiosPrivate } from './api/axios';
 import './App.css';
 import Hero from './components/main/Hero';
 import Sidebar from './components/main/Sidebar';
@@ -18,20 +17,21 @@ function App() {
     setUser(loggedUser)
   }
   const logout = async () => {
-    cookies.remove('token')
+    // cookies.remove('token')
     setIsLoggedIn(false)
   }
   useEffect(() => {
-    const token = cookies.load('token')
-    async function getUser(id) {
-      const singnedUser = await axios.get(`/user/${id}`)
-      setUser(singnedUser.data)
+    async function getUser() {
+      try {
+        await axiosPrivate.post(`/silent`).then(res => {
+          setUser(res.data)
+          setIsLoggedIn(true)
+        }).catch(e => alert("Sorry your session ended!"))
+      } catch (e) {
+        console.log(e)
+      }
     }
-    if (token) {
-      const id = cookies.load('userId')
-      getUser(id)
-      setIsLoggedIn(true)
-    }
+    getUser()
   }, [])
   return (
     <div className="App pl-[4.9rem]">
