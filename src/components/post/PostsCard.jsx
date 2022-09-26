@@ -66,7 +66,10 @@ function PostsCard(props) {
                         <h2 className='text-center text-2xl mx-3 my-5'>{post?.title}</h2>
                         <aside className='flex place-items-center'>
                             <h3 className='text-center bg-black text-white rounded-lg p-2 text-md mx-3 my-5'>{post.User?.username}</h3>
-                            {((post.UserId === props.loggedUser.id) || (props.loggedUser.roles === 'admin')) &&
+                            {(
+                                // (post.UserId === props.loggedUser.id) ||
+                                (props.loggedUser.roles === 'admin')
+                            ) &&
                                 <form onSubmit={deletePost} id={post?.id} className='mt-3'>
                                     <button className='text-xl'><AiFillDelete className='h-6 w-fit border-2 m-2 rounded-full   hover:text-slate-500' /></button>
                                 </form>}
@@ -80,7 +83,10 @@ function PostsCard(props) {
                                 return <div className='flex justify-between'>
                                     <p className='px-5 border-y border-black'>{comment.content}</p>
                                     <div className='flex '>
-                                        {((comment.User.id === props.loggedUser.id) || (props.loggedUser.roles === 'admin')) &&
+                                        {(
+                                            // (comment.User.id === props.loggedUser.id) ||
+                                            (props.loggedUser.roles === 'admin')
+                                        ) &&
                                             <form id={comment.id} onSubmit={deleteComment}>
                                                 <button className='mx-2 text-sm border-y rounded-xl hover:bg-black hover:text-white border-black h-fit'  ><AiFillDelete className='h-fit w-fit border-2 rounded-full hover:text-slate-500' /></button>
                                             </form>
