@@ -10,7 +10,11 @@ function AddPostForm(props) {
             title: e.target.title.value,
             UserId: user.id
         }
-        const newPost = await axios.post(`/post`, data)
+        const newPost = await axios.post(`/post`, data, {
+            headers: {
+                Authorization: `Bearer ${props.user.access_token}`
+            }
+        })
         e.target.content.value = ''
         e.target.title.value = ''
         props.updatePosts(newPost.data)
