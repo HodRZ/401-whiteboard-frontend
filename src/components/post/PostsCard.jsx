@@ -1,10 +1,12 @@
 import axios from './../../api/axios';
 import React, { useEffect, useState } from 'react';
-import { AiFillDelete } from 'react-icons/ai'
+import { AiFillDelete, AiFillEdit } from 'react-icons/ai'
+import EditPost from './EditPost';
 function PostsCard(props) {
     const [comment, setComment] = useState(false)
     const [post, setPost] = useState(props.post)
     const [showPost, setShowPost] = useState(true)
+    const [showEdit, setShowEdit] = useState(false)
 
     const getPost = async () => {
         const id = props.post.id
@@ -30,6 +32,25 @@ function PostsCard(props) {
         })
         e.target.comment.value = ''
         setComment(!comment)
+        getPost()
+    }
+    const editPost = async (e) => {
+        e.preventDefault()
+        const data = {
+            content: e.target.content.value,
+            title: e.target.title.value
+        }
+        await axios.put(`/post/${e.target.id}`, data, {
+            headers: {
+                Authorization: `Bearer ${props.loggedUser.access_token}`
+            }
+        })
+            .then(res => {
+                e.target.content.value = ''
+                e.target.title.value = ''
+            })
+            .catch(e => alert(e.response.data))
+        setShowEdit(false)
         getPost()
     }
 
@@ -60,6 +81,9 @@ function PostsCard(props) {
     }, [])
     return (
         <>
+            {showEdit &&
+                <EditPost post={post} setShowEdit={setShowEdit} editPost={editPost} />
+            }
             {showPost &&
                 <div key={post?.id} className=' border shadow-xl flex flex-col border-slate-700 rounded-md h-fit '>
                     <div className='flex justify-between'>
@@ -70,18 +94,21 @@ function PostsCard(props) {
                                 // (post.UserId === props.loggedUser.id) ||
                                 (props.loggedUser.roles === 'admin')
                             ) &&
-                                <form onSubmit={deletePost} id={post?.id} className='mt-3'>
-                                    <button className='text-xl'><AiFillDelete className='h-6 w-fit border-2 m-2 rounded-full   hover:text-slate-500' /></button>
-                                </form>}
+                                <>
+                                    <button onClick={() => { setShowEdit(true) }}><AiFillEdit /></button>
+                                    <form onSubmit={deletePost} id={post?.id} className='mt-3'>
+                                        <button className='text-xl'><AiFillDelete className='h-6 w-fit border-2 m-2 rounded-full   hover:text-slate-500' /></button>
+                                    </form>
+                                </>}
 
                         </aside>
                     </div>
-                    <p className='px-3 py-8 bg-black bg-opacity-10'>{post?.content}</p>
+                    <p className='px-3 py-8 bg-black bg-opacity-10 break-all'>{post?.content}</p>
                     <div className=' flex flex-col gap-3 my-2'>
                         {post?.comments &&
                             post.comments.map((comment) => {
                                 return <div className='flex justify-between'>
-                                    <p className='px-5 border-y border-black'>{comment.content}</p>
+                                    <p className='px-5 border-y border-black break-all'>{comment.content}</p>
                                     <div className='flex '>
                                         {(
                                             // (comment.User.id === props.loggedUser.id) ||
@@ -91,7 +118,7 @@ function PostsCard(props) {
                                                 <button className='mx-2 text-sm border-y rounded-xl hover:bg-black hover:text-white border-black h-fit'  ><AiFillDelete className='h-fit w-fit border-2 rounded-full hover:text-slate-500' /></button>
                                             </form>
                                         }
-                                        <p className='px-2 border-y bg-black text-white border-x rounded-md border-black h-fit'>{comment.User.username}</p>
+                                        <p className='px-2 border-y bg-black text-white border-x rounded-md border-black h-fit'>{comment?.User?.username}</p>
                                     </div>
                                 </div>
                             }
