@@ -107,7 +107,7 @@ function PostsCard(props) {
                     <div className=' flex flex-col gap-3 my-2'>
                         {post?.comments &&
                             post.comments.map((comment) => {
-                                return <div className='flex justify-between'>
+                                return <div key={comment.id} className='flex justify-between'>
                                     <p className='px-5 border-y border-black break-all'>{comment.content}</p>
                                     <div className='flex '>
                                         {(

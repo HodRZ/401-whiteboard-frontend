@@ -27,7 +27,7 @@ function Post(props) {
                     if (post.UserId === props.user.id) {
                         user = props.user
                     }
-                    return <PostsCard post={post} loggedUser={props.user} author={user} getPosts={getPosts} />
+                    return <PostsCard key={post.id} post={post} loggedUser={props.user} author={user} getPosts={getPosts} />
                 })}
             </div>
         </div>
