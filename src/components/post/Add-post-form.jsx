@@ -1,7 +1,11 @@
 import axios from './../../api/axios';
 import React, { useState } from 'react';
 
+import AppDataContext from '../../state/Context';
+import { useContext } from 'react';
+
 function AddPostForm(props) {
+    const { updatePosts } = useContext(AppDataContext)
     const [user, setUser] = useState(props.user)
     const addPost = async (e) => {
         e.preventDefault()
@@ -17,7 +21,7 @@ function AddPostForm(props) {
         })
         e.target.content.value = ''
         e.target.title.value = ''
-        props.updatePosts(newPost.data)
+        updatePosts(newPost.data)
     }
     return (
         <div className='md:flex place-content-center '>

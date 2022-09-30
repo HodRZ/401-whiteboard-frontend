@@ -1,6 +1,10 @@
 import React from 'react';
+import { useContext } from 'react';
+import AppDataContext from '../../state/Context';
+import { actions } from '../../state/Reducer';
 
 function EditPost(props) {
+    const { dispatch } = useContext(AppDataContext)
     const handleEdit = (e) => {
         e.preventDefault()
         props.editPost(e)
@@ -19,7 +23,13 @@ function EditPost(props) {
                             <textarea type="text" name='content' defaultValue={props?.post?.content} className='border border-action rounded-lg ' />
                             <div className='flex justify-center gap-16 '>
                                 <button className='border-b-2 hover:bg-purple-900 hover:text-action w-[20%] shadow-lg rounded-lg'>edit</button>
-                                <button className='border-b-2 hover:bg-purple-900 hover:text-action w-[20%] shadow-lg rounded-lg' onClick={() => { props.setShowEdit(false) }}>cancel</button>
+                                <button className='border-b-2 hover:bg-purple-900 hover:text-action w-[20%] shadow-lg rounded-lg'
+                                    onClick={() => {
+                                        dispatch({
+                                            type: actions.showEditPost,
+                                            payload: false
+                                        })
+                                    }}>cancel</button>
                             </div>
                         </form>
                     </div>

@@ -1,32 +1,35 @@
-import { createContext, useState, useEffect } from 'react';
+
+import { createContext, useEffect, useReducer } from 'react';
 import axios from '../api/axios';
+
+import { postsReducer, initialPostsState, actions } from './Reducer';
 
 const AppDataContext = createContext({})
 
 export const AppDataProvider = ({ children }) => {
-    const [posts, setPosts] = useState()
-    const [comment, setComment] = useState(false)
-    const [showEdit, setShowEdit] = useState(false)
-
-
+    const [state, dispatch] = useReducer(postsReducer, initialPostsState)
 
     const getPosts = async () => {
         const postsData = await axios.get(`/postAll`)
-        setPosts(postsData.data)
+        dispatch({
+            type: actions.loadPosts,
+            payload: postsData.data
+        })
     }
     const updatePosts = (post) => {
-        setPosts([...posts, post])
-    }
+        dispatch({
+            type: actions.loadPosts,
+            payload: [...state.posts, post]
+        })
 
+    }
     useEffect(() => {
         getPosts()
     }, [])
     return (
         <AppDataContext.Provider
             value={{
-                posts, setPosts,
-                comment, setComment,
-                showEdit, setShowEdit,
+                state, dispatch,
                 getPosts, updatePosts
             }
             }>

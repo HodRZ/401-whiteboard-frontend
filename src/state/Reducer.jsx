@@ -1,25 +1,37 @@
-export function reducer(state, action) {
+export function postsReducer(state, action) {
     switch (action.type) {
-        case 'login':
-            return {
-                ...state,
-                isloggedIn: true,
-                signedUser: action.payload
-            }
-        case 'logout':
-            return {
-                ...state,
-                isloggedIn: false,
-                signedUser: {}
-            }
         case 'loadPosts': {
             return {
                 ...state,
-                postsData: action.payload
+                posts: action.payload
+            }
+        }
+        case 'showComment': {
+            return {
+                ...state,
+                comment: action.payload
+            }
+        }
+        case 'showEditPost': {
+            return {
+                ...state,
+                showEdit: action.payload
             }
         }
 
         default:
             throw Error('Unknown action: ' + action.type)
     }
+}
+
+export const actions = {
+    loadPosts: 'loadPosts',
+    showComment: 'showComment',
+    showEditPost: 'showEditPost'
+}
+
+export const initialPostsState = {
+    posts: [],
+    comment: false,
+    showEdit: false
 }
