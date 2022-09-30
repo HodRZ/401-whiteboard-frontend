@@ -11,6 +11,7 @@ import Auth from './components/user/Auth';
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false)
   const [user, setUser] = useState()
+  const [loading, setLoading] = useState(true)
 
   const login = async (loggedUser) => {
     setIsLoggedIn(true);
@@ -26,7 +27,9 @@ function App() {
         await axiosPrivate.post(`/silent`).then(res => {
           setUser(res.data)
           setIsLoggedIn(true)
-        }).catch(e => alert("Sorry your session ended!"))
+        })
+          .catch(e => alert("Sorry your session ended!"))
+          .finally(() => setLoading(false))
       } catch (e) {
         console.log(e)
       }
@@ -37,7 +40,9 @@ function App() {
     <div className="App pl-[4.9rem]">
       <Sidebar isLoggedIn={isLoggedIn} logout={logout} />
       <Hero />
-      {(isLoggedIn && user) ? <Post user={user} /> : <Auth login={login} />}
+      {!loading &&
+        ((isLoggedIn && user) ? <Post user={user} /> : <Auth login={login} />)
+      }
     </div>
   );
 }
