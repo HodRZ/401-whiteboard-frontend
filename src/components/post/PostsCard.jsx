@@ -2,11 +2,16 @@ import axios from './../../api/axios';
 import React, { useEffect, useState } from 'react';
 import { AiFillDelete, AiFillEdit } from 'react-icons/ai'
 import EditPost from './EditPost';
+import AppDataContext from '../../state/Context';
+import { useContext } from 'react';
+import { actions } from '../../state/Reducer';
+
 function PostsCard(props) {
-    const [comment, setComment] = useState(false)
+    const { state, dispatch } = useContext(AppDataContext)
+    // const [comment, setComment] = useState(false)
     const [post, setPost] = useState(props.post)
     const [showPost, setShowPost] = useState(true)
-    const [showEdit, setShowEdit] = useState(false)
+    // const [showEdit, setShowEdit] = useState(false)
 
     const getPost = async () => {
         const id = props.post.id
@@ -31,7 +36,10 @@ function PostsCard(props) {
             }
         })
         e.target.comment.value = ''
-        setComment(!comment)
+        dispatch({
+            type: actions.showComment,
+            payload: true
+        })
         getPost()
     }
     const editPost = async (e) => {
@@ -50,7 +58,10 @@ function PostsCard(props) {
                 e.target.title.value = ''
             })
             .catch(e => alert(e.response.data))
-        setShowEdit(false)
+        dispatch({
+            type: actions.showEditPost,
+            payload: false
+        })
         getPost()
     }
 
@@ -81,9 +92,9 @@ function PostsCard(props) {
     }, [])
     return (
         <>
-            {showEdit &&
-                <EditPost post={post} setShowEdit={setShowEdit} editPost={editPost} />
-            }
+            {state.showEdit &&
+                <EditPost post={post} editPost={editPost} />}
+
             {showPost &&
                 <div key={post?.id} className=' border shadow-xl flex flex-col border-slate-700 rounded-md h-fit '>
                     <div className='flex justify-between'>
@@ -95,7 +106,10 @@ function PostsCard(props) {
                                 (props.loggedUser.roles === 'admin')
                             ) &&
                                 <>
-                                    <button onClick={() => { setShowEdit(true) }}><AiFillEdit /></button>
+                                    <button onClick={() => dispatch({
+                                        type: actions.showEditPost,
+                                        payload: true
+                                    })}><AiFillEdit /></button>
                                     <form onSubmit={deletePost} id={post?.id} className='mt-3'>
                                         <button className='text-xl'><AiFillDelete className='h-6 w-fit border-2 m-2 rounded-full   hover:text-slate-500' /></button>
                                     </form>
