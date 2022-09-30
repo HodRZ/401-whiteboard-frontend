@@ -18,8 +18,13 @@ function App() {
     setUser(loggedUser)
   }
   const logout = async () => {
-    // cookies.remove('token')
-    setIsLoggedIn(false)
+    try {
+      await axiosPrivate.delete(`/silent`)
+        .catch(e => console.error(e))
+        .finally(() => setIsLoggedIn(false))
+    } catch (e) {
+      console.log(e)
+    }
   }
   useEffect(() => {
     async function getUser() {
