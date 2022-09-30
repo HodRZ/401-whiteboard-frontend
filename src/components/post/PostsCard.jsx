@@ -2,11 +2,15 @@ import axios from './../../api/axios';
 import React, { useEffect, useState } from 'react';
 import { AiFillDelete, AiFillEdit } from 'react-icons/ai'
 import EditPost from './EditPost';
+import AppDataContext from '../../state/Context';
+import { useContext } from 'react';
+
 function PostsCard(props) {
-    const [comment, setComment] = useState(false)
+    const { comment, setComment, showEdit, setShowEdit } = useContext(AppDataContext)
+    // const [comment, setComment] = useState(false)
     const [post, setPost] = useState(props.post)
     const [showPost, setShowPost] = useState(true)
-    const [showEdit, setShowEdit] = useState(false)
+    // const [showEdit, setShowEdit] = useState(false)
 
     const getPost = async () => {
         const id = props.post.id

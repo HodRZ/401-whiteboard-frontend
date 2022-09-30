@@ -6,6 +6,7 @@ import Hero from './components/main/Hero';
 import Sidebar from './components/main/Sidebar';
 import Post from './components/post/Post';
 import Auth from './components/user/Auth';
+import { AppDataProvider } from './state/Context';
 
 
 function App() {
@@ -45,9 +46,13 @@ function App() {
     <div className="App pl-[4.9rem]">
       <Sidebar isLoggedIn={isLoggedIn} logout={logout} />
       <Hero />
-      {!loading &&
-        ((isLoggedIn && user) ? <Post user={user} /> : <Auth login={login} />)
-      }
+      <AppDataProvider>
+        {!loading &&
+          ((isLoggedIn && user) ?
+            <Post user={user} /> :
+            <Auth login={login} />)
+        }
+      </AppDataProvider>
     </div>
   );
 }

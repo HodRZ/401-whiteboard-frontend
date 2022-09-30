@@ -1,21 +1,21 @@
-import axios from './../../api/axios';
-import React, { useEffect, useState } from 'react';
+import React, { useContext } from 'react';
 import AddPostForm from './Add-post-form';
 import PostsCard from './PostsCard';
-
+import AppDataContext from '../../state/Context';
 function Post(props) {
-    const [posts, setPosts] = useState()
+    const { posts, setPosts, getPosts, updatePosts } = useContext(AppDataContext)
+    // const [posts, setPosts] = useState()
 
-    const getPosts = async () => {
-        const postsData = await axios.get(`/postAll`)
-        setPosts(postsData.data)
-    }
-    const updatePosts = (post) => {
-        setPosts([...posts, post])
-    }
-    useEffect(() => {
-        getPosts()
-    }, [])
+    // const getPosts = async () => {
+    //     const postsData = await axios.get(`/postAll`)
+    //     setPosts(postsData.data)
+    // }
+    // const updatePosts = (post) => {
+    //     setPosts([...posts, post])
+    // }
+    // useEffect(() => {
+    //     getPosts()
+    // }, [])
     return (
         <div>
 
