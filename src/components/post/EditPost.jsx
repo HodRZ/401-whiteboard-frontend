@@ -1,10 +1,9 @@
 import React from 'react';
-import { useContext } from 'react';
-import AppDataContext from '../../state/Context';
-import { actions } from '../../state/Reducer';
+import { usePosts } from '../../State/PostsContext';
+import { actions } from '../../State/PostsReducer';
 
 function EditPost(props) {
-    const { dispatch } = useContext(AppDataContext)
+    const { dispatch } = usePosts()
     const handleEdit = (e) => {
         e.preventDefault()
         props.editPost(e)

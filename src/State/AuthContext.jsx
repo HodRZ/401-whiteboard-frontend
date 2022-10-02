@@ -1,22 +1,26 @@
-import { createContext, useState, useEffect } from 'react';
+import { createContext, useState, useEffect, useReducer, useContext } from 'react';
 import { axiosPrivate } from '../api/axios';
+import { UserReducer, userActions, initialUserState } from './UserReducer';
 
 const UserContext = createContext({})
 
+export const useAuth = () => useContext(UserContext)
+
 export const UserProvider = ({ children }) => {
-    const [isLoggedIn, setIsLoggedIn] = useState(false)
-    const [user, setUser] = useState()
+    const [userState, dispatch] = useReducer(UserReducer, initialUserState)
     const [loading, setLoading] = useState(true)
 
     const login = async (loggedUser) => {
-        setIsLoggedIn(true);
-        setUser(loggedUser)
+        dispatch({
+            type: userActions.login,
+            payload: loggedUser
+        })
     }
     const logout = async () => {
         try {
             await axiosPrivate.delete(`/silent`)
                 .catch(e => console.error(e))
-                .finally(() => setIsLoggedIn(false))
+                .finally(() => dispatch({ type: userActions.logout }))
         } catch (e) {
             console.log(e)
         }
@@ -25,8 +29,10 @@ export const UserProvider = ({ children }) => {
         async function getUser() {
             try {
                 await axiosPrivate.post(`/silent`).then(res => {
-                    setUser(res.data)
-                    setIsLoggedIn(true)
+                    dispatch({
+                        type: userActions.login,
+                        payload: res.data
+                    })
                 })
                     .catch(e => alert("Sorry your session ended!"))
                     .finally(() => setLoading(false))
@@ -39,8 +45,7 @@ export const UserProvider = ({ children }) => {
     return (
         <UserContext.Provider
             value={{
-                isLoggedIn, setIsLoggedIn,
-                user, setUser,
+                userState, dispatch,
                 loading, setLoading,
                 login, logout
             }}

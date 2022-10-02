@@ -1,12 +1,12 @@
 import axios from './../../api/axios';
-import React, { useState } from 'react';
 
-import AppDataContext from '../../state/Context';
-import { useContext } from 'react';
+import { usePosts } from '../../State/PostsContext';
+import { useAuth } from '../../State/AuthContext';
 
 function AddPostForm(props) {
-    const { updatePosts } = useContext(AppDataContext)
-    const [user, setUser] = useState(props.user)
+    const { updatePosts } = usePosts()
+    const { userState } = useAuth()
+    const user = userState.loggedUser
     const addPost = async (e) => {
         e.preventDefault()
         const data = {
@@ -16,7 +16,7 @@ function AddPostForm(props) {
         }
         const newPost = await axios.post(`/post`, data, {
             headers: {
-                Authorization: `Bearer ${props.user.access_token}`
+                Authorization: `Bearer ${user.access_token}`
             }
         })
         e.target.content.value = ''
