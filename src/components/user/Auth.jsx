@@ -1,10 +1,11 @@
 import { axiosPrivate } from './../../api/axios';
-import React from 'react';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import base64 from 'base-64'
+import { useAuth } from '../../State/AuthContext';
 
 const Auth = (props) => {
     const [newUser, setNewUser] = useState()
+    const { login } = useAuth()
 
     const userForm = () => {
         setNewUser(!newUser)
@@ -19,7 +20,7 @@ const Auth = (props) => {
         }
         await axiosPrivate.post(`/signUp`, newUser)
             .then(res => {
-                props.login(res.data)
+                login(res.data)
             })
             .catch(e => alert(e.response.data))
     }
@@ -32,7 +33,7 @@ const Auth = (props) => {
         const encodedData = base64.encode(`${userData.email}:${userData.password}`);
         await axiosPrivate.post(`/signin`, {}, { headers: { Authorization: `Basic ${encodedData}` } })
             .then(res => {
-                props.login(res.data)
+                login(res.data)
             })
             .catch(e => alert(e.response.data));
     }

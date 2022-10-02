@@ -1,10 +1,12 @@
 
-import { createContext, useEffect, useReducer } from 'react';
+import { createContext, useEffect, useReducer, useContext } from 'react';
 import axios from '../api/axios';
 
-import { postsReducer, initialPostsState, actions } from './Reducer';
+import { postsReducer, initialPostsState, actions } from './PostsReducer';
 
 const AppDataContext = createContext({})
+
+export const usePosts = () => useContext(AppDataContext)
 
 export const AppDataProvider = ({ children }) => {
     const [state, dispatch] = useReducer(postsReducer, initialPostsState)
