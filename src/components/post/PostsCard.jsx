@@ -4,9 +4,13 @@ import { AiFillDelete, AiFillEdit } from 'react-icons/ai'
 import EditPost from './EditPost';
 import { usePosts } from '../../State/PostsContext';
 import { actions } from '../../State/PostsReducer';
+import { useAuth } from '../../State/AuthContext';
 
 function PostsCard(props) {
     const { state, dispatch } = usePosts()
+    const { userState } = useAuth()
+    const { loggedUser } = userState
+
     const [post, setPost] = useState(props.post)
     const [showPost, setShowPost] = useState(true)
 
@@ -14,7 +18,7 @@ function PostsCard(props) {
         const id = props.post.id
         const updatedPost = await axios.get(`/post/${id}`, {
             headers: {
-                Authorization: `Bearer ${props.loggedUser.access_token}`
+                Authorization: `Bearer ${loggedUser.access_token}`
             }
         })
         setPost(updatedPost.data)
@@ -25,11 +29,11 @@ function PostsCard(props) {
         const id = e.target.id
         const newCmnt = {
             content: e.target.comment.value,
-            UserId: props.loggedUser.id
+            UserId: loggedUser.id
         }
         await axios.post(`/post/${id}/comment`, newCmnt, {
             headers: {
-                Authorization: `Bearer ${props.loggedUser.access_token}`
+                Authorization: `Bearer ${loggedUser.access_token}`
             }
         })
         e.target.comment.value = ''
@@ -47,7 +51,7 @@ function PostsCard(props) {
         }
         await axios.put(`/post/${e.target.id}`, data, {
             headers: {
-                Authorization: `Bearer ${props.loggedUser.access_token}`
+                Authorization: `Bearer ${loggedUser.access_token}`
             }
         })
             .then(res => {
@@ -67,7 +71,7 @@ function PostsCard(props) {
         const id = e.target.id
         await axios.delete(`/comment/${id}`, {
             headers: {
-                Authorization: `Bearer ${props.loggedUser.access_token}`
+                Authorization: `Bearer ${loggedUser.access_token}`
             }
         })
         getPost()
@@ -79,7 +83,7 @@ function PostsCard(props) {
         const id = e.target.id
         await axios.delete(`/post/${id}`, {
             headers: {
-                Authorization: `Bearer ${props.loggedUser.access_token}`
+                Authorization: `Bearer ${loggedUser.access_token}`
             }
         })
         setShowPost(false)
@@ -99,8 +103,8 @@ function PostsCard(props) {
                         <aside className='flex place-items-center'>
                             <h3 className='text-center bg-black text-white rounded-lg p-2 text-md mx-3 my-5'>{post.User?.username}</h3>
                             {(
-                                // (post.UserId === props.loggedUser.id) ||
-                                (props.loggedUser.roles === 'admin')
+                                (post.UserId === loggedUser.id) ||
+                                (loggedUser.roles === 'admin')
                             ) &&
                                 <>
                                     <button onClick={() => dispatch({
@@ -122,8 +126,8 @@ function PostsCard(props) {
                                     <p className='px-5 border-y border-black break-all'>{comment.content}</p>
                                     <div className='flex '>
                                         {(
-                                            // (comment.User.id === props.loggedUser.id) ||
-                                            (props.loggedUser.roles === 'admin')
+                                            (comment.User.id === loggedUser.id) ||
+                                            (loggedUser.roles === 'admin')
                                         ) &&
                                             <form id={comment.id} onSubmit={deleteComment}>
                                                 <button className='mx-2 text-sm border-y rounded-xl hover:bg-black hover:text-white border-black h-fit'  ><AiFillDelete className='h-fit w-fit border-2 rounded-full hover:text-slate-500' /></button>
