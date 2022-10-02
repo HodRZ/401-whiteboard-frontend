@@ -6,15 +6,7 @@ import { useAuth } from '../../State/AuthContext';
 function Post(props) {
     const { state } = usePosts()
     const { userState } = useAuth()
-    // const [posts, setPosts] = useState()
 
-    // const getPosts = async () => {
-    //     const postsData = await axios.get(`/postAll`)
-    //     setPosts(postsData.data)
-    // }
-    // const updatePosts = (post) => {
-    //     setPosts([...posts, post])
-    // }
 
     return (
         < div >

@@ -4,9 +4,7 @@ import './Sidebar.css'
 
 function Sidebar(props) {
     const { logout, userState } = useAuth()
-    // const logout = () => {
-    //     props.logout()
-    // }
+
     return (
         <div className='flex fixed h-screen shadow-xl p-2 top-0 left-0 '>
             <div className='flex flex-col gap-3 font-mono'>

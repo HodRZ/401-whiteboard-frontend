@@ -7,10 +7,8 @@ import { actions } from '../../State/PostsReducer';
 
 function PostsCard(props) {
     const { state, dispatch } = usePosts()
-    // const [comment, setComment] = useState(false)
     const [post, setPost] = useState(props.post)
     const [showPost, setShowPost] = useState(true)
-    // const [showEdit, setShowEdit] = useState(false)
 
     const getPost = async () => {
         const id = props.post.id
