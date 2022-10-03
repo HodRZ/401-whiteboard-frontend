@@ -13,6 +13,7 @@ function PostsCard(props) {
 
     const [post, setPost] = useState(props.post)
     const [showPost, setShowPost] = useState(true)
+    const [showEdit, setShowEdit] = useState(false)
 
     const getPost = async () => {
         const id = props.post.id
@@ -59,10 +60,7 @@ function PostsCard(props) {
                 e.target.title.value = ''
             })
             .catch(e => alert(e.response.data))
-        dispatch({
-            type: actions.showEditPost,
-            payload: false
-        })
+        setShowEdit(false)
         getPost()
     }
 
@@ -93,8 +91,8 @@ function PostsCard(props) {
     }, [])
     return (
         <>
-            {state.showEdit &&
-                <EditPost post={post} editPost={editPost} />}
+            {showEdit &&
+                <EditPost post={post} setShowEdit={setShowEdit} editPost={editPost} />}
 
             {showPost &&
                 <div key={post?.id} className=' border shadow-xl flex flex-col border-slate-700 rounded-md h-fit '>
@@ -107,10 +105,7 @@ function PostsCard(props) {
                                 (loggedUser.roles === 'admin')
                             ) &&
                                 <>
-                                    <button onClick={() => dispatch({
-                                        type: actions.showEditPost,
-                                        payload: true
-                                    })}><AiFillEdit /></button>
+                                    <button onClick={() => { setShowEdit(true) }}><AiFillEdit /></button>
                                     <form onSubmit={deletePost} id={post?.id} className='mt-3'>
                                         <button className='text-xl'><AiFillDelete className='h-6 w-fit border-2 m-2 rounded-full   hover:text-slate-500' /></button>
                                     </form>

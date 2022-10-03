@@ -23,12 +23,7 @@ function EditPost(props) {
                             <div className='flex justify-center gap-16 '>
                                 <button className='border-b-2 hover:bg-purple-900 hover:text-action w-[20%] shadow-lg rounded-lg'>edit</button>
                                 <button className='border-b-2 hover:bg-purple-900 hover:text-action w-[20%] shadow-lg rounded-lg'
-                                    onClick={() => {
-                                        dispatch({
-                                            type: actions.showEditPost,
-                                            payload: false
-                                        })
-                                    }}>cancel</button>
+                                    onClick={() => { props.setShowEdit(false) }}>cancel</button>
                             </div>
                         </form>
                     </div>
