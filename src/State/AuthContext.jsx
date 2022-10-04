@@ -19,7 +19,7 @@ export const UserProvider = ({ children }) => {
 
     const isAuthorized = (modelAuthorId) => {
         return ((modelAuthorId === userState.loggedUser.id) ||
-            (userState.loggedUser === 'admin'))
+            (userState.loggedUser.roles === 'admin'))
     }
     const logout = async () => {
         try {
