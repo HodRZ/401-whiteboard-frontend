@@ -5,16 +5,18 @@ import Post from './components/post/Post';
 import Auth from './components/user/Auth';
 import { AppDataProvider } from './State/PostsContext';
 import { useAuth } from './State/AuthContext'
+import Loading from './components/main/Loading';
 
 
 function App() {
-  const { userState } = useAuth()
+  const { userState, loading } = useAuth()
   return (
     <div className="App pl-[4.9rem]">
       <Sidebar />
       <Hero />
       <AppDataProvider>
-        {true &&
+        {(loading) ?
+          <Loading /> :
           ((userState.isLoggedIn && userState.loggedUser) ?
             <Post /> :
             <Auth />)
