@@ -7,8 +7,8 @@ import { actions } from '../../State/PostsReducer';
 import { useAuth } from '../../State/AuthContext';
 
 function PostsCard(props) {
-    const { state, dispatch } = usePosts()
-    const { userState } = useAuth()
+    const { dispatch } = usePosts()
+    const { userState, isAuthorized } = useAuth()
     const { loggedUser } = userState
 
     const [post, setPost] = useState(props.post)
@@ -100,10 +100,7 @@ function PostsCard(props) {
                         <h2 className='text-center text-2xl mx-3 my-5'>{post?.title}</h2>
                         <aside className='flex place-items-center'>
                             <h3 className='text-center bg-black text-white rounded-lg p-2 text-md mx-3 my-5'>{post.User?.username}</h3>
-                            {(
-                                (post.UserId === loggedUser.id) ||
-                                (loggedUser.roles === 'admin')
-                            ) &&
+                            {isAuthorized(post.UserId) &&
                                 <>
                                     <button onClick={() => { setShowEdit(true) }}><AiFillEdit /></button>
                                     <form onSubmit={deletePost} id={post?.id} className='mt-3'>
@@ -120,10 +117,7 @@ function PostsCard(props) {
                                 return <div key={comment.id} className='flex justify-between'>
                                     <p className='px-5 border-y border-black break-all'>{comment.content}</p>
                                     <div className='flex '>
-                                        {(
-                                            (comment.User.id === loggedUser.id) ||
-                                            (loggedUser.roles === 'admin')
-                                        ) &&
+                                        {isAuthorized(comment.User.id) &&
                                             <form id={comment.id} onSubmit={deleteComment}>
                                                 <button className='mx-2 text-sm border-y rounded-xl hover:bg-black hover:text-white border-black h-fit'  ><AiFillDelete className='h-fit w-fit border-2 rounded-full hover:text-slate-500' /></button>
                                             </form>
