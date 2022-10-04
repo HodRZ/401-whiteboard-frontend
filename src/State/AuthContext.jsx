@@ -16,6 +16,11 @@ export const UserProvider = ({ children }) => {
             payload: loggedUser
         })
     }
+
+    const isAuthorized = (modelAuthorId) => {
+        return ((modelAuthorId === userState.loggedUser.id) ||
+            (userState.loggedUser === 'admin'))
+    }
     const logout = async () => {
         try {
             await axiosPrivate.delete(`/silent`)
@@ -47,7 +52,7 @@ export const UserProvider = ({ children }) => {
             value={{
                 userState, dispatch,
                 loading, setLoading,
-                login, logout
+                login, logout, isAuthorized
             }}
         >
             {children}
