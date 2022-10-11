@@ -1,9 +1,6 @@
 import React from 'react';
-import { usePosts } from '../../State/PostsContext';
-import { actions } from '../../State/PostsReducer';
 
 function EditPost(props) {
-    const { dispatch } = usePosts()
     const handleEdit = (e) => {
         e.preventDefault()
         props.editPost(e)

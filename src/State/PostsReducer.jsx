@@ -6,18 +6,15 @@ export function postsReducer(state, action) {
                 posts: action.payload
             }
         }
-        case 'showComment': {
+        case 'deletePost': {
+            const { posts } = state
+            let updatedPosts = posts.filter(post => post.id !== action.payload)
             return {
                 ...state,
-                comment: action.payload
+                posts: [...updatedPosts]
             }
         }
-        case 'showEditPost': {
-            return {
-                ...state,
-                showEdit: action.payload
-            }
-        }
+
 
         default:
             throw Error('Unknown action: ' + action.type)
@@ -26,12 +23,9 @@ export function postsReducer(state, action) {
 
 export const actions = {
     loadPosts: 'loadPosts',
-    showComment: 'showComment',
-    showEditPost: 'showEditPost'
+    deletePost: 'deletePost'
 }
 
 export const initialPostsState = {
-    posts: [],
-    comment: false,
-    showEdit: false
+    posts: []
 }
