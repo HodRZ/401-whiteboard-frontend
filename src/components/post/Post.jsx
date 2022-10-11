@@ -14,13 +14,15 @@ function Post(props) {
             <AddPostForm />
             <div className='grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 mx-4 font-mono gap-x-5 gap-y-8'>
 
-                {state.posts && state.posts.map((post) => {
-                    let user = {};
-                    if (post.UserId === userState.loggedUser.id) {
-                        user = userState.loggedUser
-                    }
-                    return <PostsCard key={post.id} post={post} author={user} />
-                })}
+                {state.posts &&
+                    state.posts.map((post) => {
+                        let author = {};
+                        if (post.UserId === userState.loggedUser.id) {
+                            author = userState.loggedUser
+                        }
+                        return <PostsCard key={post.id} post={post} author={author} />
+                    })
+                }
             </div>
         </div >
     );
